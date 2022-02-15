@@ -8,19 +8,17 @@ function App() {
   const [newTodo, setNewTodo] = useState('');
 
   useEffect(() => {
+    function GetTodos() {
+      fetch(API_BASE + '/todos').then((res) =>
+        res
+          .json()
+          .then((data) => setTodos(data))
+          .catch((err) => console.log('Error: ', err))
+      );
+    }
     GetTodos();
-
     console.log(todos);
   }, []);
-
-  const GetTodos = () => {
-    fetch(API_BASE + '/todos').then((res) =>
-      res
-        .json()
-        .then((data) => setTodos(data))
-        .catch((err) => console.log('Error: ', err))
-    );
-  };
 
   const completeTodo = async (id) => {
     const data = await fetch(API_BASE + '/todo/complete/' + id).then((res) =>
