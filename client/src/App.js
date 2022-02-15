@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const API_BASE = 'http://localhost:3001';
 
@@ -6,19 +6,23 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
   const [newTodo, setNewTodo] = useState('');
+  const hasFetchedData = useRef(false);
 
   useEffect(() => {
-    function GetTodos() {
-      fetch(API_BASE + '/todos').then((res) =>
-        res
-          .json()
-          .then((data) => setTodos(data))
-          .catch((err) => console.log('Error: ', err))
-      );
+    if (!hasFetchedData.current) {
+      GetTodos();
+      hasFetchedData.current = true;
     }
-    GetTodos();
-    console.log(todos);
-  }, []);
+  }, [todos]);
+
+  const GetTodos = () => {
+    fetch(API_BASE + '/todos').then((res) =>
+      res
+        .json()
+        .then((data) => setTodos(data))
+        .catch((err) => console.log('Error: ', err))
+    );
+  };
 
   const completeTodo = async (id) => {
     const data = await fetch(API_BASE + '/todo/complete/' + id).then((res) =>
