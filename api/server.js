@@ -7,8 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const uri =
+  'mongodb+srv://admin:strongpassw0rd@todo.0p3dg.mongodb.net/todo?retryWrites=true&w=majority';
+
 mongoose
-  .connect('mongodb://127.0.0.1:27017/mern-todo', {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
