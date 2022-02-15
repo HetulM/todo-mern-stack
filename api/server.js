@@ -1,14 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const uri =
-  'mongodb+srv://admin:strongpassw0rd@todo.0p3dg.mongodb.net/todo?retryWrites=true&w=majority';
+dotenv.config();
+
+const uri = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@todo.0p3dg.mongodb.net/todo?retryWrites=true&w=majority`;
 
 mongoose
   .connect(uri, {
