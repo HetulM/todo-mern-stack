@@ -1,0 +1,18 @@
+GET http://localhost:3001/todos
+
+###
+
+POST http://localhost:3001/todo/new
+Content-Type: application/json
+
+{
+  "text": "This has come from the API!"
+}
+
+###
+
+DELETE http://localhost:3001/todo/delete/6194293a54469cc62dec7cee
+
+###
+
+PUT http://localhost:3001/todo/complete/6194292f54469cc62dec7cec
